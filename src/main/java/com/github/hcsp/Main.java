@@ -62,7 +62,7 @@ public class Main {
         httpGet.addHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
         try (CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
             System.out.println(response1.getStatusLine());
-            HttpEntity entity1 = response1.getEntity();
+            HttpEntity entity1 = response1.getEntity();        
             String html = EntityUtils.toString(entity1);
             return Jsoup.parse(html);
         }
