@@ -56,8 +56,10 @@ public class Main {
 
     private static Document httpGetAndParseHtml(String link) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+        System.out.println(link);
         if (link.startsWith("//")) {
             link = "https:" + link;
+            System.out.println(link);
         }
         HttpGet httpGet = new HttpGet(link);
         httpGet.addHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
