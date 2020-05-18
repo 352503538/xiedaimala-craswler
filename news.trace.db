@@ -1,0 +1,125 @@
+2020-05-18 14:36:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "BIGNIT"; SQL statement:
+create table news (
+id bignit primary key auto_increment,
+title text,
+content text,
+url varchar(100),
+created_at timestamp,
+modified_at timestamp
+) [50004-200]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5971)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5697)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8442)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8379)
+	at org.h2.command.Parser.parseCreate(Parser.java:6276)
+	at org.h2.command.Parser.parsePrepared(Parser.java:903)
+	at org.h2.command.Parser.parse(Parser.java:843)
+	at org.h2.command.Parser.parse(Parser.java:815)
+	at org.h2.command.Parser.prepareCommand(Parser.java:738)
+	at org.h2.engine.Session.prepareLocal(Session.java:657)
+	at org.h2.engine.Session.prepareCommand(Session.java:595)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1235)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:212)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:201)
+	at net.sourceforge.squirrel_sql.client.session.StatementWrapper.execute(StatementWrapper.java:168)
+	at net.sourceforge.squirrel_sql.client.session.SQLExecuterTask.processQuery(SQLExecuterTask.java:361)
+	at net.sourceforge.squirrel_sql.client.session.SQLExecuterTask.runDirect(SQLExecuterTask.java:214)
+	at net.sourceforge.squirrel_sql.client.session.SQLExecuterTask.run(SQLExecuterTask.java:137)
+	at net.sourceforge.squirrel_sql.fw.util.TaskExecuter.run(TaskExecuter.java:82)
+	at java.lang.Thread.run(Thread.java:748)
+2020-05-18 14:37:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELET[*] * FROM LINKS_TO_BE_PROCESSED"; expected "SET, SAVEPOINT, SCRIPT, SHUTDOWN, SHOW"; SQL statement:
+selet * from LINKS_TO_BE_PROCESSED [42001-200]
+2020-05-18 14:37:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LINKS_ALREADY_PROCESSED" not found; SQL statement:
+select * from LINKS_ALREADY_PROCESSED [42102-200]
+2020-05-18 14:56:35 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/linyi/IdeaProjects/xiedaimala-craswler/news.mv.db [1.4.199/7]" [50000-199]
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2787)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:441)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:404)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3343)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:162)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2739)
+	at org.h2.engine.Database.open(Database.java:769)
+	at org.h2.engine.Database.openDatabase(Database.java:319)
+	at org.h2.engine.Database.<init>(Database.java:313)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:201)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:169)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:148)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at com.github.hcsp.Main.main(Main.java:34)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/linyi/IdeaProjects/xiedaimala-craswler/news.mv.db [1.4.199/7]" [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	... 25 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/linyi/IdeaProjects/xiedaimala-craswler/news.mv.db [1.4.199/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:883)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:390)
+	... 19 more
+2020-05-18 14:57:36 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/linyi/IdeaProjects/xiedaimala-craswler/news.mv.db [1.4.199/7]" [50000-199]
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2787)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:441)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:404)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3343)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:162)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2739)
+	at org.h2.engine.Database.open(Database.java:769)
+	at org.h2.engine.Database.openDatabase(Database.java:319)
+	at org.h2.engine.Database.<init>(Database.java:313)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:201)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:169)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:148)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at com.github.hcsp.Main.main(Main.java:34)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/linyi/IdeaProjects/xiedaimala-craswler/news.mv.db [1.4.199/7]" [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	... 25 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/linyi/IdeaProjects/xiedaimala-craswler/news.mv.db [1.4.199/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:883)
+	at org.h2.mvstore.FileStore.open(FileStore.java:172)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:390)
+	... 19 more
+2020-05-18 15:12:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parameter "#1" is not set; SQL statement:
+SELECT LINK FROM LINKS_ALREADY_PROCESSED where link = ? [90012-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:587)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:94)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:180)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:144)
+	at org.h2.command.Command.executeQuery(Command.java:202)
+	at org.h2.jdbc.JdbcPreparedStatement.executeQuery(JdbcPreparedStatement.java:115)
+	at com.github.hcsp.Main.main(Main.java:59)
