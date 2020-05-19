@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.sql.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -38,7 +37,7 @@ public class Main {
 
                 parseUrlFromPageAndStoreIntoDatabase(connection, doc);
 
-                storeIntoDatabaseIfItIsNewsPage(connection,doc,link);
+                storeIntoDatabaseIfItIsNewsPage(connection, doc, link);
 
                 updataDatabase(connection, link, "INSERT INTO LINKS_ALREADY_PROCESSED (link) values(?)");
             }
@@ -115,10 +114,10 @@ public class Main {
 
                 String content = articleTag.select("p").stream().map(Element::text).collect(Collectors.joining("\n"));
 
-                try(PreparedStatement statement = connection.prepareStatement("insert into news (url, title , content, created_at, modified_at)values(?,?,?,now(),now())")){
-                    statement.setString(1,link);
-                    statement.setString(2,title);
-                    statement.setString(3,content);
+                try (PreparedStatement statement = connection.prepareStatement("insert into news (url, title , content, created_at, modified_at)values(?,?,?,now(),now())")) {
+                    statement.setString(1, link);
+                    statement.setString(2, title);
+                    statement.setString(3, content);
                     statement.executeUpdate();
                 }
             }
