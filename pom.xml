@@ -112,6 +112,23 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>6.4.2</version>
+                <configuration>
+                    <url>jdbc:h2:file:/Users/linyi/IdeaProjects/xiedaimala-craswler/news</url>
+                    <user>root</user>
+                    <password>559926</password>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.199</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 </project>
