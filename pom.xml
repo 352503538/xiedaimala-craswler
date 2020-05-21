@@ -21,6 +21,11 @@
     </repositories>
     <dependencies>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
             <version>3.0.1</version>
@@ -52,6 +57,11 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.13.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.4</version>
         </dependency>
     </dependencies>
 
@@ -94,7 +104,6 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.0.0</version>
                 <dependencies>
-                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs</artifactId>
@@ -117,7 +126,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.4.2</version>
                 <configuration>
-                    <url>jdbc:h2:file:/Users/linyi/IdeaProjects/xiedaimala-craswler/news</url>
+                    <url>jdbc:mysql://localhost:3306/news?characterEncoding=UTF-8</url>
                     <user>root</user>
                     <password>559926</password>
                 </configuration>

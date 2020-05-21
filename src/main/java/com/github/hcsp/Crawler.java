@@ -17,31 +17,36 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 
-public class Crawler {
+public class Crawler extends Thread {
 
-    JdbcCrawlerDao dao = new DatabaseAccessObject();
+    CrawlerDao dao;
 
-    public void run() throws SQLException, IOException {
-        String link;
-        while ((link = dao.getNextLinkThenDelete()) != null) {
-            if (dao.isLinkProcessed(link)) {
-                continue;
-            }
-            if (isInterestingLink(link)) {
-                System.out.println(link);
-                Document doc = httpGetAndParseHtml(link);
-
-                parseUrlFromPageAndStoreIntoDatabase(doc);
-
-                storeIntoDatabaseIfItIsNewsPage(doc, link);
-
-                dao.updataDatabase(link, "INSERT INTO LINKS_ALREADY_PROCESSED (link) values(?)");
-            }
-        }
+    public Crawler(CrawlerDao dao) {
+        this.dao = dao;
     }
 
-    public static void main(String[] args) throws IOException, SQLException {
-        new Crawler().run();
+    @Override
+    public void run() {
+        try {
+            String link;
+            while ((link = dao.getNextLinkThenDelete()) != null) {
+                if (dao.isLinkProcessed(link)) {
+                    continue;
+                }
+                if (isInterestingLink(link)) {
+                    System.out.println(link);
+                    Document doc = httpGetAndParseHtml(link);
+
+                    parseUrlFromPageAndStoreIntoDatabase(doc);
+
+                    storeIntoDatabaseIfItIsNewsPage(doc, link);
+
+                    dao.insertProcessedLink(link);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void parseUrlFromPageAndStoreIntoDatabase(Document doc) throws SQLException {
@@ -53,7 +58,8 @@ public class Crawler {
             }
 
             if (!href.toLowerCase().startsWith("javascript")) {
-                dao.updataDatabase(href, "INSERT INTO LINKS_TO_BE_PROCESSED (link) values(?)");
+
+                dao.insertLinkToBeProcessed(href);
             }
 
         }
