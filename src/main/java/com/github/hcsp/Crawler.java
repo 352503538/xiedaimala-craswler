@@ -58,7 +58,6 @@ public class Crawler extends Thread {
             }
 
             if (!href.toLowerCase().startsWith("javascript")) {
-
                 dao.insertLinkToBeProcessed(href);
             }
 

@@ -14,7 +14,7 @@ public class JdbcCrawlerDao implements CrawlerDao {
     @SuppressFBWarnings("DMI_CONSTANT_DB_PASSWORD")
     public JdbcCrawlerDao() {
         try {
-            this.connection = DriverManager.getConnection("jdbc:h2:file:/Users/linyi/IdeaProjects/xiedaimala-craswler/news", USER_NAME, PASSWORD);
+            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/news?characterEncoding=UTF-8", USER_NAME, PASSWORD);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -36,7 +36,7 @@ public class JdbcCrawlerDao implements CrawlerDao {
         return null;
     }
 
-    public String getNextLinkThenDelete() throws SQLException {
+    public synchronized String getNextLinkThenDelete() throws SQLException {
         String link = getNextLink("select link from LINKS_TO_BE_PROCESSED LIMIT 1");
         if (link != null) {
             updataDatabase(link, "DELETE FROM LINKS_TO_BE_PROCESSED where link = ?");
@@ -77,13 +77,19 @@ public class JdbcCrawlerDao implements CrawlerDao {
     }
 
     @Override
-    public void insertProcessedLink(String link) {
-
+    public void insertProcessedLink(String link) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO LINKS_ALREADY_PROCESSED(LINK) values (?)")) {
+            statement.setString(1, link);
+            statement.executeUpdate();
+        }
     }
 
     @Override
-    public void insertLinkToBeProcessed(String link) {
-
+    public void insertLinkToBeProcessed(String link) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO LINKS_TO_BE_PROCESSED(LINK) values (?)")) {
+            statement.setString(1, link);
+            statement.executeUpdate();
+        }
     }
 
 }
